@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubiko - Contacto Administrador</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      background: white;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #000122, #001a3d);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .admin-card {
+      background: #f8f9fa;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .admin-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      overflow: hidden;
+      border: 3px solid #000122;
+    }
+
+    .admin-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+
+    .admin-title {
+      font-size: 1rem;
+      color: #4a5568;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .contact-info-simple {
+      margin: 25px 0;
+    }
+
+    .info-item {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-content {
+      flex: 1;
+    }
+
+    .info-label {
+      font-size: 0.9rem;
+      color: #4a5568;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 1.1rem;
+      color: #1a202c;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .contact-button-section {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .main-contact-btn {
+      background: linear-gradient(135deg, #000122, #001a3d);
+      color: white;
+      padding: 18px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,1,34,0.3);
+      min-width: 250px;
+    }
+
+    .main-contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,1,34,0.4);
+    }
+
+    .main-contact-btn:active {
+      transform: translateY(0);
+    }
+
+    .back-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #000122;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-link:hover {
+      background: #001a3d;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 15px;
+      }
+      
+      .admin-card {
+        padding: 20px;
+      }
+      
+      .contact-item {
+        padding: 14px;
+        gap: 12px;
+      }
+      
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Contacto Administrador</h1>
+      <p>Información de contacto y horarios</p>
+    </div>
+
+    <div class="content">
+      <!-- Foto y datos básicos -->
+      <div class="admin-card">
+        <div class="admin-photo">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Carlos Rodríguez" id="adminPhoto">
+        </div>
+        <div class="admin-name">Carlos Rodríguez</div>
+        <div class="admin-title">Administrador de Fincas</div>
+      </div>
+
+      <!-- Información de contacto simple -->
+      <div class="contact-info-simple">
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div class="info-content">
+            <div class="info-label">Teléfono</div>
+            <div class="info-value">+34 622 334 455</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-content">
+            <div class="info-label">Email</div>
+            <div class="info-value">carlos@administracion.com</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-content">
+            <div class="info-label">Oficina</div>
+            <div class="info-value">Calle Mayor 45, 2º A<br>28001 Madrid</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón principal de contacto -->
+      <div class="contact-button-section">
+        <a href="#" class="main-contact-btn" onclick="openContactApp()">
+          Contactar
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Función para abrir opciones de contacto
+    function openContactApp() {
+      const options = [
+        { name: 'Llamar', action: () => window.open('tel:+34622334455', '_self') },
+        { name: 'Email', action: () => window.open('mailto:carlos@administracion.com', '_self') },
+        { name: 'WhatsApp', action: () => window.open('https://wa.me/34622334455', '_blank') }
+      ];
+
+      const choice = confirm('¿Cómo quieres contactar?\n\n1. OK para llamar\n2. Cancelar para ver más opciones');
+      
+      if (choice) {
+        options[0].action();
+      } else {
+        const secondChoice = confirm('Opciones adicionales:\n\n1. OK para Email\n2. Cancelar para WhatsApp');
+        if (secondChoice) {
+          options[1].action();
+        } else {
+          options[2].action();
+        }
+      }
+    }
+
+    // Fallback si no hay foto
+    document.addEventListener('DOMContentLoaded', function() {
+      const photo = document.getElementById('adminPhoto');
+      photo.onerror = function() {
+        // Si no encuentra la foto, mostrar un avatar con iniciales
+        this.style.display = 'none';
+        const avatar = document.createElement('div');
+        avatar.style.cssText = `
+          width: 100px;
+          height: 100px;
+          background: #000122;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 2.5rem;
+          font-weight: 600;
+          margin: 0 auto 15px;
+        `;
+        avatar.textContent = 'CR';
+        this.parentNode.appendChild(avatar);
+      };
+    });
+  </script>
+</body>
+</html>
