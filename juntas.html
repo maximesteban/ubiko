@@ -3,122 +3,433 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="css/juntas.css" />
+    <title>Ubiko - Juntas</title>
     <style>
-        .banner-container {
-          width: 100%;
-          background-color: white;
-        }
-  
-        .banner-img {
-          width: 100%;
-          max-height: 180px;
-          object-fit: cover;
-          display: block;
-        }
-      </style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        background: white;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000122, #001a3d);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 400;
+      }
+
+      .filters {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        border: 1px solid #000122;
+        background: white;
+        color: #000122;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 0.9rem;
+        flex: 1;
+        text-align: center;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #000122;
+        color: white;
+      }
+
+      .juntas-list {
+        padding: 20px;
+      }
+
+      .empty-message {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .junta-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .junta-card:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 1, 34, 0.15);
+        border-color: #000122;
+      }
+
+      .junta-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 12px;
+      }
+
+      .junta-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a202c;
+        flex: 1;
+        line-height: 1.3;
+      }
+
+      .junta-date {
+        background: #000122;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+        font-family: 'SF Mono', Monaco, monospace;
+      }
+
+      .junta-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: #4a5568;
+        min-width: 50px;
+        font-size: 0.9rem;
+      }
+
+      .detail-value {
+        color: #2d3748;
+        font-size: 0.9rem;
+      }
+
+      .junta-actions {
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+      }
+
+      .download-btn {
+        background: #000122;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .download-btn:active {
+        background: #001a3d;
+        transform: translateY(1px);
+      }
+
+      .download-btn.secondary {
+        background: #4a5568;
+      }
+
+      .download-btn.secondary:active {
+        background: #2d3748;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        background: #f7fafc;
+        color: #4a5568;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+        margin-top: 8px;
+      }
+
+      /* Status indicators */
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+      }
+
+      .status-future {
+        background: #48bb78;
+      }
+
+      .status-past {
+        background: #a0aec0;
+      }
+
+      /* Touch optimization */
+      .download-btn {
+        min-height: 44px;
+      }
+
+      .filter-btn {
+        min-height: 44px;
+      }
+    </style>
   </head>
   <body>
-    <!-- Banner superior -->
-    <div class="banner-container">
-        <img src="banner.png" alt="Banner Bourgeois Fincas" class="banner-img" />
+    <div class="container">
+      <div class="header">
+        <h1>Juntas de Propietarios</h1>
+        <p>Consulta y descarga documentos</p>
       </div>
-      <div class="tabs-noticias">
-        <div class="android-frame">
-          <div class="store-item">
-            <div class="frame">
-              <div class="div">
-                <div class="tab">
-                  <div class="tab-item">
-                    <div class="frame-2"><div class="label">Juntas</div></div>
-                  </div>
-                </div>
+      <div class="filters">
+        <a href="#" class="filter-btn active" onclick="filterJuntas('all')">Todas</a>
+        <a href="#" class="filter-btn" onclick="filterJuntas('past')">Pasadas</a>
+        <a href="#" class="filter-btn" onclick="filterJuntas('future')">Previstas</a>
+      </div>
 
-              <!-- Contenido -->
-              <div class="frame-wrapper1">
-                <div class="frame-31">
-                 
-                  <!-- Anuncio 1 -->
-                  <div class="ad-card-21">
-                    <div class="frame-41">
-                      <div class="frame-51">
-                        <div class="most-fonts-have-a1">Anuncio</div>
-                        <img class="img1" alt="Close square" />
-                      </div>
-                      <div class="most-fonts-have-a-wrapper1">
-                        <p class="most-fonts-have-a-21">
-                          <span class="text-wrapper1"><b>05/04/25</b><br /></span>
-                          <span class="text-wrapper1">
-                            Presupuesto anual y cuotas.
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Anuncio 2 -->
-                  <div class="ad-card-21">
-                    <div class="frame-41">
-                      <div class="frame-51">
-                        <div class="most-fonts-have-a1">Anuncio</div>
-                        <img class="img1" alt="Close square" />
-                      </div>
-                      <div class="most-fonts-have-a-wrapper1">
-                        <p class="most-fonts-have-a-21">
-                          <span class="text-wrapper1"><b>05/04/25</b><br /></span>
-                          <span class="text-wrapper1">
-                            Revisión y aprobación de obras o mejoras:<br />
-                            Reparaciones de fachada, tejado, garaje, etc.
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Anuncio 3 -->
-                  <div class="ad-card-21">
-                    <div class="frame-41">
-                      <div class="frame-51">
-                        <div class="most-fonts-have-a1">Anuncio</div>
-                        <img class="close-square-21" alt="Close square" />
-                      </div>
-                      <div class="most-fonts-have-a-wrapper1">
-                        <p class="most-fonts-have-a-21">
-                          <span class="text-wrapper1"><b>08/03/25</b><br /></span>
-                          <span class="text-wrapper1">
-                            Siniestros o incidencias importantes:<br />
-                            Filtraciones, averías, robos...
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Anuncio 4 -->
-                  <div class="ad-card-21">
-                    <div class="frame-41">
-                      <div class="most-fonts-have-a-wrapper1">
-                        <p class="p1">
-                          <span class="text-wrapper1"><b>05/02/25</b><br /></span>
-                          <span class="span1">
-                            Convivencia y normativa interna:<br />
-                            Ruidos, uso de zonas comunes, mascotas...
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  
-
-                </div>
-              </div>
+      <div class="juntas-list" id="juntasList">
+        <!-- Junta 1 - Futura -->
+        <div class="junta-card" data-type="future">
+          <div class="junta-header">
+            <div class="junta-title">Junta Ordinaria Anual</div>
+            <div class="junta-date">15/12/2025</div>
+          </div>
+          <div class="junta-details">
+            <div class="detail-item">
+              <span class="detail-label">Hora:</span>
+              <span class="detail-value">18:00</span>
             </div>
+            <div class="detail-item">
+              <span class="detail-label">Lugar:</span>
+              <span class="detail-value">Salón de actos - Planta baja</span>
+            </div>
+          </div>
+          <div class="junta-actions">
+            <a href="#" class="download-btn">
+              <span class="status-indicator status-future"></span>
+              Descargar Convocatoria
+            </a>
+            <div class="badge">Documentos disponibles</div>
+          </div>
+        </div>
+
+        <!-- Junta 2 - Futura -->
+        <div class="junta-card" data-type="future">
+          <div class="junta-header">
+            <div class="junta-title">Junta Extraordinaria</div>
+            <div class="junta-date">28/11/2025</div>
+          </div>
+          <div class="junta-details">
+            <div class="detail-item">
+              <span class="detail-label">Hora:</span>
+              <span class="detail-value">19:30</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Lugar:</span>
+              <span class="detail-value">Sala de reuniones</span>
+            </div>
+          </div>
+          <div class="junta-actions">
+            <a href="#" class="download-btn">
+              <span class="status-indicator status-future"></span>
+              Descargar Convocatoria
+            </a>
+          </div>
+        </div>
+
+        <!-- Junta 3 - Pasada -->
+        <div class="junta-card" data-type="past">
+          <div class="junta-header">
+            <div class="junta-title">Junta Ordinaria</div>
+            <div class="junta-date">05/04/2025</div>
+          </div>
+          <div class="junta-details">
+            <div class="detail-item">
+              <span class="detail-label">Hora:</span>
+              <span class="detail-value">18:00</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Lugar:</span>
+              <span class="detail-value">Salón de actos</span>
+            </div>
+          </div>
+          <div class="junta-actions">
+            <a href="#" class="download-btn">
+              <span class="status-indicator status-past"></span>
+              Descargar Convocatoria
+            </a>
+            <a href="#" class="download-btn secondary">
+              <span class="status-indicator status-past"></span>
+              Descargar Acta
+            </a>
+          </div>
+        </div>
+
+        <!-- Junta 4 - Pasada -->
+        <div class="junta-card" data-type="past">
+          <div class="junta-header">
+            <div class="junta-title">Junta Extraordinaria</div>
+            <div class="junta-date">08/03/2025</div>
+          </div>
+          <div class="junta-details">
+            <div class="detail-item">
+              <span class="detail-label">Hora:</span>
+              <span class="detail-value">19:00</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Lugar:</span>
+              <span class="detail-value">Salón de actos</span>
+            </div>
+          </div>
+          <div class="junta-actions">
+            <a href="#" class="download-btn">
+              <span class="status-indicator status-past"></span>
+              Descargar Convocatoria
+            </a>
+            <a href="#" class="download-btn secondary">
+              <span class="status-indicator status-past"></span>
+              Descargar Acta
+            </a>
+          </div>
+        </div>
+
+        <!-- Junta 5 - Pasada -->
+        <div class="junta-card" data-type="past">
+          <div class="junta-header">
+            <div class="junta-title">Junta Ordinaria</div>
+            <div class="junta-date">05/02/2025</div>
+          </div>
+          <div class="junta-details">
+            <div class="detail-item">
+              <span class="detail-label">Hora:</span>
+              <span class="detail-value">18:30</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Lugar:</span>
+              <span class="detail-value">Salón de actos</span>
+            </div>
+          </div>
+          <div class="junta-actions">
+            <a href="#" class="download-btn">
+              <span class="status-indicator status-past"></span>
+              Descargar Convocatoria
+            </a>
+            <a href="#" class="download-btn secondary">
+              <span class="status-indicator status-past"></span>
+              Descargar Acta
+            </a>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      function filterJuntas(type) {
+        const cards = document.querySelectorAll('.junta-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (type === 'all' || card.dataset.type === type) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if any cards are visible
+        const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+        const emptyMessage = document.getElementById('emptyMessage');
+        
+        if (visibleCards.length === 0) {
+          if (!emptyMessage) {
+            const empty = document.createElement('div');
+            empty.id = 'emptyMessage';
+            empty.className = 'empty-message';
+            empty.textContent = 'No hay juntas disponibles para este filtro.';
+            document.getElementById('juntasList').appendChild(empty);
+          }
+        } else {
+          if (emptyMessage) {
+            emptyMessage.remove();
+          }
+        }
+      }
+
+      // Format dates on load
+      document.addEventListener('DOMContentLoaded', function() {
+        const dateElements = document.querySelectorAll('.junta-date');
+        dateElements.forEach(el => {
+          // Add visual indicator for past/future
+          const card = el.closest('.junta-card');
+          if (card.dataset.type === 'past') {
+            el.style.background = '#4a5568';
+            el.style.opacity = '0.8';
+          }
+        });
+      });
+    </script>
   </body>
 </html>

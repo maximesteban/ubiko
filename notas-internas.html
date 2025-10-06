@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubiko - Notas Internas del Sistema</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      background: white;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #000122, #001a3d);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    .repo-info {
+      background: #f7fafc;
+      padding: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .repo-link {
+      display: inline-block;
+      background: #000122;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .repo-link:hover {
+      background: #001a3d;
+      transform: translateY(-1px);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #000122;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .url-card {
+      background: #f8f9fa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .url-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
+    }
+
+    .url-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .url-path {
+      font-family: 'SF Mono', Monaco, monospace;
+      background: #000122;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .url-description {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .url-features {
+      margin-top: 10px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .feature-list li {
+      background: #e2e8f0;
+      color: #2d3748;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      font-weight: 500;
+    }
+
+    .back-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #000122;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-link:hover {
+      background: #001a3d;
+      transform: translateY(-2px);
+    }
+
+    .demo-note {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      color: #856404;
+    }
+
+    .demo-note strong {
+      color: #533f03;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Notas Internas del Sistema</h1>
+      <p>Documentación técnica y funcional</p>
+    </div>
+
+    <div class="repo-info">
+      <p><strong>Repositorio del Proyecto:</strong></p>
+      <a href="https://github.com/maximesteban/ubiko" class="repo-link" target="_blank">
+        📁 github.com/maximesteban/ubiko
+      </a>
+    </div>
+
+    <div class="content">
+      <div class="demo-note">
+        <strong>📋 Nota de Demo:</strong> Este es un sistema de demostración para gestión de comunidades de propietarios. 
+        Todas las páginas están optimizadas para móviles y usan el color corporativo #000122.
+      </div>
+
+      <!-- Sección Propietarios/Inquilinos -->
+      <div class="section">
+        <h2 class="section-title">👥 Área de Propietarios / Inquilinos</h2>
+        
+        <div class="url-card">
+          <div class="url-title">
+            <span>Mis Facturas</span>
+            <span class="url-path">facturas-propietarios.html</span>
+          </div>
+          <div class="url-description">
+            Gestión personal de facturas individuales. Los propietarios pueden ver sus facturas pendientes y pagadas.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Filtrado por estado</li>
+              <li>Descarga de PDFs</li>
+              <li>Histórico de pagos</li>
+              <li>Notificaciones de vencimiento</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Mis Recibos</span>
+            <span class="url-path">recibos-propietarios.html</span>
+          </div>
+          <div class="url-description">
+            Acceso a recibos personales y comprobantes de pago de servicios de la comunidad.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Recibos de gastos comunes</li>
+              <li>Comprobantes de pago</li>
+              <li>Historial anual</li>
+              <li>Exportación a PDF</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Documentos</span>
+            <span class="url-path">documentos-propietarios.html</span>
+          </div>
+          <div class="url-description">
+            Biblioteca de documentos oficiales de la comunidad accesibles para propietarios.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Estatutos de la comunidad</li>
+              <li>Actas de juntas</li>
+              <li>Reglamentos internos</li>
+              <li>Certificados</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Incidencias</span>
+            <span class="url-path">incidencias-propietarios.html</span>
+          </div>
+          <div class="url-description">
+            Sistema de reporte y seguimiento de incidencias en zonas comunes y servicios.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Crear nueva incidencia</li>
+              <li>Seguimiento de estado</li>
+              <li>Historial de reportes</li>
+              <li>Fotos adjuntas</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Juntas</span>
+            <span class="url-path">juntas.html</span>
+          </div>
+          <div class="url-description">
+            Gestión de juntas de propietarios: convocatorias, actas y participación.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Convocatorias activas</li>
+              <li>Actas históricas</li>
+              <li>Votaciones online</li>
+              <li>Calendario de reuniones</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Tablón de Anuncios</span>
+            <span class="url-path">tablon-anuncios.html</span>
+          </div>
+          <div class="url-description">
+            Comunicaciones oficiales y anuncios de la comunidad para todos los residentes.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Anuncios oficiales</li>
+              <li>Avisos de mantenimiento</li>
+              <li>Comunicados urgentes</li>
+              <li>Eventos comunitarios</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Presidente -->
+      <div class="section">
+        <h2 class="section-title">👨‍💼 Panel del Presidente</h2>
+        
+        <div class="url-card">
+          <div class="url-title">
+            <span>Facturas Comunidad</span>
+            <span class="url-path">presidente-facturas.html</span>
+          </div>
+          <div class="url-description">
+            Gestión administrativa de todas las facturas de la comunidad y proveedores.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Dashboard financiero</li>
+              <li>Aprobación de pagos</li>
+              <li>Gestión de proveedores</li>
+              <li>Reportes mensuales</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Recibos Comunidad</span>
+            <span class="url-path">presidente-recibos.html</span>
+          </div>
+          <div class="url-description">
+            Control de recibos emitidos y cobros de la comunidad por servicios y gastos comunes.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Estado de cobros</li>
+              <li>Recibos pendientes</li>
+              <li>Estadísticas de pago</li>
+              <li>Gestión de morosos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección Conserje -->
+      <div class="section">
+        <h2 class="section-title">🔧 Panel del Conserje</h2>
+        
+        <div class="url-card">
+          <div class="url-title">
+            <span>Gestión Incidencias</span>
+            <span class="url-path">conserje-incidencias.html</span>
+          </div>
+          <div class="url-description">
+            Sistema de gestión operativa de incidencias: asignación, seguimiento y resolución.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Cola de trabajo</li>
+              <li>Priorización de tareas</li>
+              <li>Asignación a técnicos</li>
+              <li>Registro de soluciones</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="url-card">
+          <div class="url-title">
+            <span>Facturas Mantenimiento</span>
+            <span class="url-path">conserje-facturas.html</span>
+          </div>
+          <div class="url-description">
+            Control de facturas operativas de mantenimiento, reparaciones y servicios técnicos.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Facturas de mantenimiento</li>
+              <li>Solicitudes de aprobación</li>
+              <li>Gestión de proveedores</li>
+              <li>Control de presupuesto</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página Principal -->
+      <div class="section">
+        <h2 class="section-title">🏠 Navegación Principal</h2>
+        
+        <div class="url-card">
+          <div class="url-title">
+            <span>Portal Principal</span>
+            <span class="url-path">index.html</span>
+          </div>
+          <div class="url-description">
+            Página principal estilo "link in bio" que actúa como hub de navegación hacia todas las secciones del sistema.
+          </div>
+          <div class="url-features">
+            <ul class="feature-list">
+              <li>Navegación por roles</li>
+              <li>Diseño mobile-first</li>
+              <li>Acceso rápido</li>
+              <li>Branding Ubiko</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">← Volver al Portal</a>
+  </div>
+</body>
+</html>

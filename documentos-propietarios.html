@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubiko - Documentos</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        background: white;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000122, #001a3d);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 400;
+      }
+
+      .filters {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 10px 16px;
+        border: 1px solid #000122;
+        background: white;
+        color: #000122;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 0.85rem;
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #000122;
+        color: white;
+      }
+
+      .documentos-list {
+        padding: 20px;
+      }
+
+      .documento-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .documento-card:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 1, 34, 0.15);
+        border-color: #000122;
+      }
+
+      .documento-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 12px;
+      }
+
+      .documento-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a202c;
+        flex: 1;
+        line-height: 1.3;
+      }
+
+      .documento-type {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .type-certificado {
+        background: #bee3f8;
+        color: #2a69ac;
+      }
+
+      .type-seguro {
+        background: #c6f6d5;
+        color: #22543d;
+      }
+
+      .type-reglamento {
+        background: #fed7d7;
+        color: #742a2a;
+      }
+
+      .type-acta {
+        background: #e2e8f0;
+        color: #4a5568;
+      }
+
+      .type-presupuesto {
+        background: #faf0e6;
+        color: #8b4513;
+      }
+
+      .documento-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.9rem;
+      }
+
+      .detail-value {
+        color: #2d3748;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .documento-actions {
+        display: flex;
+        gap: 12px;
+        flex-direction: row;
+      }
+
+      .action-btn {
+        background: #000122;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        min-height: 44px;
+      }
+
+      .action-btn:active {
+        background: #001a3d;
+        transform: translateY(1px);
+      }
+
+      .action-btn.secondary {
+        background: #4a5568;
+      }
+
+      .action-btn.secondary:active {
+        background: #2d3748;
+      }
+
+      .file-size {
+        color: #718096;
+        font-size: 0.8rem;
+        font-style: italic;
+      }
+
+      .updated-badge {
+        background: #ffd700;
+        color: #8b4513;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Documentos</h1>
+        <p>Accede a toda la documentación</p>
+      </div>
+
+      <div class="filters">
+        <a href="#" class="filter-btn active" onclick="filterDocumentos('all')">Todos</a>
+        <a href="#" class="filter-btn" onclick="filterDocumentos('certificado')">Certificados</a>
+        <a href="#" class="filter-btn" onclick="filterDocumentos('seguro')">Seguros</a>
+        <a href="#" class="filter-btn" onclick="filterDocumentos('reglamento')">Normas</a>
+      </div>
+
+      <div class="documentos-list" id="documentosList">
+        <!-- Documento 1 -->
+        <div class="documento-card" data-type="certificado">
+          <div class="documento-header">
+            <div class="documento-title">Certificado Energético</div>
+            <div class="documento-type type-certificado">Certificado</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha emisión:</span>
+              <span class="detail-value">15/10/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Validez:</span>
+              <span class="detail-value">15/10/2035</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">2.4 MB</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Compartir</a>
+          </div>
+        </div>
+
+        <!-- Documento 2 -->
+        <div class="documento-card" data-type="seguro">
+          <div class="documento-header">
+            <div class="documento-title">Póliza Seguro Comunidad</div>
+            <div class="documento-type type-seguro">Seguro</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Aseguradora:</span>
+              <span class="detail-value">Mapfre Seguros</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Vigencia:</span>
+              <span class="detail-value">01/01/2025 - 31/12/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">1.8 MB</span>
+                <span class="updated-badge">Nuevo</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Ver Coberturas</a>
+          </div>
+        </div>
+
+        <!-- Documento 3 -->
+        <div class="documento-card" data-type="reglamento">
+          <div class="documento-header">
+            <div class="documento-title">Reglamento Interno</div>
+            <div class="documento-type type-reglamento">Reglamento</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Última actualización:</span>
+              <span class="detail-value">20/09/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Versión:</span>
+              <span class="detail-value">v2.1</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">950 KB</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+          </div>
+        </div>
+
+        <!-- Documento 4 -->
+        <div class="documento-card" data-type="acta">
+          <div class="documento-header">
+            <div class="documento-title">Acta Constitución</div>
+            <div class="documento-type type-acta">Acta</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha registro:</span>
+              <span class="detail-value">12/03/2020</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Notaría:</span>
+              <span class="detail-value">García-López y Asoc.</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">3.2 MB</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+          </div>
+        </div>
+
+        <!-- Documento 5 -->
+        <div class="documento-card" data-type="presupuesto">
+          <div class="documento-header">
+            <div class="documento-title">Presupuesto Anual 2025</div>
+            <div class="documento-type type-presupuesto">Presupuesto</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Aprobado en junta:</span>
+              <span class="detail-value">15/12/2024</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Total presupuesto:</span>
+              <span class="detail-value">€24,500</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">645 KB</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Ver Desglose</a>
+          </div>
+        </div>
+
+        <!-- Documento 6 -->
+        <div class="documento-card" data-type="certificado">
+          <div class="documento-header">
+            <div class="documento-title">ITE - Inspección Técnica</div>
+            <div class="documento-type type-certificado">Certificado</div>
+          </div>
+          <div class="documento-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha inspección:</span>
+              <span class="detail-value">05/08/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Resultado:</span>
+              <span class="detail-value">FAVORABLE</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tamaño:</span>
+              <span class="detail-value">
+                <span class="file-size">4.1 MB</span>
+              </span>
+            </div>
+          </div>
+          <div class="documento-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function filterDocumentos(type) {
+        const cards = document.querySelectorAll('.documento-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (type === 'all' || card.dataset.type === type) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if any cards are visible
+        const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+        const emptyMessage = document.getElementById('emptyMessage');
+        
+        if (visibleCards.length === 0) {
+          if (!emptyMessage) {
+            const empty = document.createElement('div');
+            empty.id = 'emptyMessage';
+            empty.className = 'empty-message';
+            empty.textContent = 'No hay documentos disponibles para este filtro.';
+            document.getElementById('documentosList').appendChild(empty);
+          }
+        } else {
+          if (emptyMessage) {
+            emptyMessage.remove();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

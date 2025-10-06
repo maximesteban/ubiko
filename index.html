@@ -2,15 +2,237 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Bourgeois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubiko - Portal de Navegación</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #000122;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .profile-section {
+      margin-bottom: 30px;
+    }
+
+    .profile-image {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 15px rgba(79, 172, 254, 0.3));
+    }
+
+    .profile-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .profile-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .link-item {
+      display: block;
+      text-decoration: none;
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: all 0.3s ease;
+      color: #333;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-item:hover {
+      background: #4facfe;
+      color: white;
+      border-color: #4facfe;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+    }
+
+    .link-item:active {
+      transform: translateY(0);
+    }
+
+    .link-icon {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
+    .link-text {
+      font-size: 16px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+        margin: 10px;
+      }
+      
+      .profile-title {
+        font-size: 22px;
+      }
+      
+      .link-item {
+        padding: 16px 18px;
+      }
+      
+      .link-text {
+        font-size: 15px;
+      }
+    }
+
+    /* Section headers */
+    .section-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000122;
+      margin: 25px 0 15px 0;
+      padding: 8px 0;
+      border-bottom: 2px solid #000122;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
+    }
+
+    /* Special styling for different link types */
+    .link-item.facturas { border-left: 4px solid #000122; }
+    .link-item.recibos { border-left: 4px solid #4a5568; }
+    .link-item.documentos { border-left: 4px solid #2d3748; }
+    .link-item.incidencia { border-left: 4px solid #e53e3e; }
+    .link-item.juntas { border-left: 4px solid #3182ce; }
+    .link-item.anuncios { border-left: 4px solid #38a169; }
+    .link-item.presidente-facturas { border-left: 4px solid #805ad5; }
+    .link-item.presidente-recibos { border-left: 4px solid #9f7aea; }
+    .link-item.conserje-incidencias { border-left: 4px solid #f56565; }
+    .link-item.conserje-facturas { border-left: 4px solid #ed8936; }
+  </style>
 </head>
 <body>
-  <h1>Bienvenido a mi sitio</h1>
-  <ul>
-    <li><a href="comunicados.html">Comunicados</a></li>
-    <li><a href="juntas.html">Juntas</a></li>
-    <li><a href="anuncios.html">Anuncios</a></li>
-    <li><a href="incidencia">Foto incidencia</a></li>
-  </ul>
+  <div class="container">
+    <div class="profile-section">
+      <div class="profile-image">
+        <img src="Ubiko.png" alt="Ubiko Logo">
+      </div>
+      <p class="profile-subtitle">Portal de Navegación y Servicios</p>
+    </div>
+
+    <div class="links-container">
+      <!-- Sección Propietarios/Inquilinos -->
+      <div class="section-header">Propietarios / Inquilinos</div>
+      
+      <a href="facturas-propietarios.html" class="link-item facturas">
+        <span class="link-text">Mis Facturas</span>
+      </a>
+
+      <a href="recibos-propietarios.html" class="link-item recibos">
+        <span class="link-text">Mis Recibos</span>
+      </a>
+
+      <a href="documentos-propietarios.html" class="link-item documentos">
+        <span class="link-text">Documentos</span>
+      </a>
+
+      <a href="incidencias-propietarios.html" class="link-item incidencia">
+        <span class="link-text">Incidencias</span>
+      </a>
+
+      <a href="juntas.html" class="link-item juntas">
+        <span class="link-text">Juntas</span>
+      </a>
+
+      <a href="tablon-anuncios.html" class="link-item anuncios">
+        <span class="link-text">Tablón de Anuncios</span>
+      </a>
+
+      <!-- Sección Presidente -->
+      <div class="section-header">Panel Presidente</div>
+      
+      <a href="presidente-facturas.html" class="link-item presidente-facturas">
+        <span class="link-text">Facturas Comunidad</span>
+      </a>
+
+      <a href="presidente-recibos.html" class="link-item presidente-recibos">
+        <span class="link-text">Recibos Comunidad</span>
+      </a>
+
+      <!-- Sección Conserje/Industriales -->
+      <div class="section-header">Panel Conserje</div>
+      
+      <a href="conserje-incidencias.html" class="link-item conserje-incidencias">
+        <span class="link-text">Gestión Incidencias</span>
+      </a>
+
+      <a href="conserje-facturas.html" class="link-item conserje-facturas">
+        <span class="link-text">Facturas Mantenimiento</span>
+      </a>
+
+      <!-- Sección Documentación -->
+      <div class="section-header">Documentación</div>
+      
+      <a href="notas-internas.html" class="link-item documentos">
+        <span class="link-text">📋 Notas Internas del Sistema</span>
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>© 2025 Ubiko</p>
+    </div>
+  </div>
 </body>
 </html>

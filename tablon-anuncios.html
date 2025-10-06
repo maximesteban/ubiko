@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubiko - Tablón de Anuncios</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        background: white;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000122, #001a3d);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 400;
+      }
+
+      .anuncios-list {
+        padding: 20px;
+      }
+
+      .anuncio-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .anuncio-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 12px;
+      }
+
+      .anuncio-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1a202c;
+        flex: 1;
+        line-height: 1.3;
+      }
+
+      .anuncio-date {
+        background: #000122;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+        font-family: 'SF Mono', Monaco, monospace;
+      }
+
+      .anuncio-content {
+        color: #2d3748;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .anuncio-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.85rem;
+        color: #718096;
+      }
+
+      .category-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .category-mantenimiento {
+        background: #faf0e6;
+        color: #8b4513;
+      }
+
+      .category-general {
+        background: #e2e8f0;
+        color: #4a5568;
+      }
+
+      .category-urgente {
+        background: #fed7d7;
+        color: #742a2a;
+      }
+
+      .category-evento {
+        background: #c6f6d5;
+        color: #22543d;
+      }
+
+      .highlight {
+        border-left: 4px solid #e53e3e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Tablón de Anuncios</h1>
+        <p>Comunicados y avisos importantes</p>
+      </div>
+
+      <div class="anuncios-list">
+        <!-- Anuncio 1 - Urgente -->
+        <div class="anuncio-card highlight">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Corte de agua programado</div>
+            <div class="anuncio-date">05/12/2025</div>
+          </div>
+          <div class="anuncio-content">
+            Se realizará un corte de agua programado el próximo martes 10 de diciembre de 8:00 a 14:00 horas para realizar trabajos de mantenimiento en la red general. Se recomienda almacenar agua con antelación.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-urgente">Urgente</span>
+            <span>Publicado por: Administración</span>
+          </div>
+        </div>
+
+        <!-- Anuncio 2 -->
+        <div class="anuncio-card">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Renovación contrato limpieza</div>
+            <div class="anuncio-date">03/12/2025</div>
+          </div>
+          <div class="anuncio-content">
+            Se informa que se ha renovado el contrato con la empresa de limpieza por un período de 2 años más. Se mantendrán los mismos horarios: lunes, miércoles y viernes de 7:00 a 10:00 horas.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-general">General</span>
+            <span>Publicado por: Presidente</span>
+          </div>
+        </div>
+
+        <!-- Anuncio 3 -->
+        <div class="anuncio-card">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Instalación cámaras de seguridad</div>
+            <div class="anuncio-date">01/12/2025</div>
+          </div>
+          <div class="anuncio-content">
+            Según lo acordado en la última junta, se procederá a la instalación de cámaras de seguridad en el portal y garaje durante la primera semana de enero 2026. Los trabajos se realizarán en horario de mañana.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-mantenimiento">Mantenimiento</span>
+            <span>Publicado por: Administración</span>
+          </div>
+        </div>
+
+        <!-- Anuncio 4 -->
+        <div class="anuncio-card">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Celebración Navidad</div>
+            <div class="anuncio-date">28/11/2025</div>
+          </div>
+          <div class="anuncio-content">
+            Se organiza una pequeña celebración navideña el sábado 21 de diciembre a las 18:00 horas en el salón de actos. Habrá aperitivo y actividades para los niños. Confirmar asistencia con el conserje.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-evento">Evento</span>
+            <span>Publicado por: Comisión Fiestas</span>
+          </div>
+        </div>
+
+        <!-- Anuncio 5 -->
+        <div class="anuncio-card">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Recordatorio cuotas diciembre</div>
+            <div class="anuncio-date">25/11/2025</div>
+          </div>
+          <div class="anuncio-content">
+            Se recuerda a todos los propietarios que las cuotas de diciembre vencen el día 31. Aquellos que tengan domiciliación bancaria no necesitan realizar ninguna gestión. El resto pueden realizar el pago por transferencia.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-general">General</span>
+            <span>Publicado por: Administración</span>
+          </div>
+        </div>
+
+        <!-- Anuncio 6 -->
+        <div class="anuncio-card">
+          <div class="anuncio-header">
+            <div class="anuncio-title">Nuevas normas uso garaje</div>
+            <div class="anuncio-date">20/11/2025</div>
+          </div>
+          <div class="anuncio-content">
+            A partir del 1 de enero 2026 entrarán en vigor las nuevas normas de uso del garaje aprobadas en junta. Se prohíbe el almacenamiento de objetos fuera de las plazas asignadas y se establecen horarios de silencio de 22:00 a 8:00 horas.
+          </div>
+          <div class="anuncio-meta">
+            <span class="category-badge category-general">General</span>
+            <span>Publicado por: Presidente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

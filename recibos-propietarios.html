@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubiko - Mis Recibos</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        background: white;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000122, #001a3d);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 400;
+      }
+
+      .filters {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        border: 1px solid #000122;
+        background: white;
+        color: #000122;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 0.9rem;
+        flex: 1;
+        text-align: center;
+        min-height: 44px;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #000122;
+        color: white;
+      }
+
+      .recibos-list {
+        padding: 20px;
+      }
+
+      .recibo-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .recibo-card:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 1, 34, 0.15);
+        border-color: #000122;
+      }
+
+      .recibo-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 12px;
+      }
+
+      .recibo-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a202c;
+        flex: 1;
+        line-height: 1.3;
+      }
+
+      .recibo-amount {
+        background: #48bb78;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+        font-family: 'SF Mono', Monaco, monospace;
+      }
+
+      .recibo-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.9rem;
+      }
+
+      .detail-value {
+        color: #2d3748;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .recibo-actions {
+        display: flex;
+        gap: 12px;
+        flex-direction: row;
+      }
+
+      .action-btn {
+        background: #000122;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        min-height: 44px;
+      }
+
+      .action-btn:active {
+        background: #001a3d;
+        transform: translateY(1px);
+      }
+
+      .verified-badge {
+        background: #c6f6d5;
+        color: #22543d;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .payment-method {
+        background: #bee3f8;
+        color: #2a69ac;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #48bb78;
+        display: inline-block;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Mis Recibos</h1>
+        <p>Historial de pagos realizados</p>
+      </div>
+
+      <div class="filters">
+        <a href="#" class="filter-btn active" onclick="filterRecibos('all')">Todos</a>
+        <a href="#" class="filter-btn" onclick="filterRecibos('2025')">2025</a>
+        <a href="#" class="filter-btn" onclick="filterRecibos('2024')">2024</a>
+      </div>
+
+      <div class="recibos-list" id="recibosList">
+        <!-- Recibo 1 -->
+        <div class="recibo-card" data-year="2025">
+          <div class="recibo-header">
+            <div class="recibo-title">Cuota Comunidad Noviembre</div>
+            <div class="recibo-amount">€125.50</div>
+          </div>
+          <div class="recibo-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">28/11/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Método:</span>
+              <span class="detail-value">
+                <span class="payment-method">Transferencia</span>
+              </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Referencia:</span>
+              <span class="detail-value">UBK-2025-1128-001</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator"></span>
+                <span class="verified-badge">✓ Verificado</span>
+              </span>
+            </div>
+          </div>
+          <div class="recibo-actions">
+            <a href="#" class="action-btn">Descargar Recibo</a>
+          </div>
+        </div>
+
+        <!-- Recibo 2 -->
+        <div class="recibo-card" data-year="2025">
+          <div class="recibo-header">
+            <div class="recibo-title">Cuota Comunidad Octubre</div>
+            <div class="recibo-amount">€125.50</div>
+          </div>
+          <div class="recibo-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">30/10/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Método:</span>
+              <span class="detail-value">
+                <span class="payment-method">Domiciliación</span>
+              </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Referencia:</span>
+              <span class="detail-value">UBK-2025-1030-002</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator"></span>
+                <span class="verified-badge">✓ Verificado</span>
+              </span>
+            </div>
+          </div>
+          <div class="recibo-actions">
+            <a href="#" class="action-btn">Descargar Recibo</a>
+          </div>
+        </div>
+
+        <!-- Recibo 3 -->
+        <div class="recibo-card" data-year="2025">
+          <div class="recibo-header">
+            <div class="recibo-title">Cuota Comunidad Septiembre</div>
+            <div class="recibo-amount">€125.50</div>
+          </div>
+          <div class="recibo-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">28/09/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Método:</span>
+              <span class="detail-value">
+                <span class="payment-method">Domiciliación</span>
+              </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Referencia:</span>
+              <span class="detail-value">UBK-2025-0928-003</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator"></span>
+                <span class="verified-badge">✓ Verificado</span>
+              </span>
+            </div>
+          </div>
+          <div class="recibo-actions">
+            <a href="#" class="action-btn">Descargar Recibo</a>
+          </div>
+        </div>
+
+        <!-- Recibo 4 -->
+        <div class="recibo-card" data-year="2024">
+          <div class="recibo-header">
+            <div class="recibo-title">Cuota Comunidad Diciembre</div>
+            <div class="recibo-amount">€120.00</div>
+          </div>
+          <div class="recibo-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">30/12/2024</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Método:</span>
+              <span class="detail-value">
+                <span class="payment-method">Transferencia</span>
+              </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Referencia:</span>
+              <span class="detail-value">UBK-2024-1230-012</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator"></span>
+                <span class="verified-badge">✓ Verificado</span>
+              </span>
+            </div>
+          </div>
+          <div class="recibo-actions">
+            <a href="#" class="action-btn">Descargar Recibo</a>
+          </div>
+        </div>
+
+        <!-- Recibo 5 -->
+        <div class="recibo-card" data-year="2024">
+          <div class="recibo-header">
+            <div class="recibo-title">Derrama Reparación Fachada</div>
+            <div class="recibo-amount">€85.20</div>
+          </div>
+          <div class="recibo-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">15/11/2024</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Método:</span>
+              <span class="detail-value">
+                <span class="payment-method">Transferencia</span>
+              </span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Referencia:</span>
+              <span class="detail-value">UBK-2024-1115-008</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator"></span>
+                <span class="verified-badge">✓ Verificado</span>
+              </span>
+            </div>
+          </div>
+          <div class="recibo-actions">
+            <a href="#" class="action-btn">Descargar Recibo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function filterRecibos(year) {
+        const cards = document.querySelectorAll('.recibo-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (year === 'all' || card.dataset.year === year) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if any cards are visible
+        const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+        const emptyMessage = document.getElementById('emptyMessage');
+        
+        if (visibleCards.length === 0) {
+          if (!emptyMessage) {
+            const empty = document.createElement('div');
+            empty.id = 'emptyMessage';
+            empty.className = 'empty-message';
+            empty.textContent = 'No hay recibos disponibles para este filtro.';
+            document.getElementById('recibosList').appendChild(empty);
+          }
+        } else {
+          if (emptyMessage) {
+            emptyMessage.remove();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubiko - Mis Facturas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #000122 0%, #001a3d 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        background: white;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000122, #001a3d);
+        color: white;
+        padding: 25px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 0.95rem;
+        opacity: 0.85;
+        font-weight: 400;
+      }
+
+      .filters {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 10px 20px;
+        border: 1px solid #000122;
+        background: white;
+        color: #000122;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 0.9rem;
+        flex: 1;
+        text-align: center;
+        min-height: 44px;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: #000122;
+        color: white;
+      }
+
+      .facturas-list {
+        padding: 20px;
+      }
+
+      .empty-message {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .factura-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .factura-card:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 1, 34, 0.15);
+        border-color: #000122;
+      }
+
+      .factura-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        gap: 12px;
+      }
+
+      .factura-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a202c;
+        flex: 1;
+        line-height: 1.3;
+      }
+
+      .factura-amount {
+        background: #000122;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+        font-family: 'SF Mono', Monaco, monospace;
+      }
+
+      .factura-details {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.9rem;
+      }
+
+      .detail-value {
+        color: #2d3748;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .factura-actions {
+        display: flex;
+        gap: 12px;
+        flex-direction: row;
+      }
+
+      .action-btn {
+        background: #000122;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        min-height: 44px;
+      }
+
+      .action-btn:active {
+        background: #001a3d;
+        transform: translateY(1px);
+      }
+
+      .action-btn.secondary {
+        background: #4a5568;
+      }
+
+      .action-btn.secondary:active {
+        background: #2d3748;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: 8px;
+      }
+
+      .status-paid {
+        background: #c6f6d5;
+        color: #22543d;
+      }
+
+      .status-pending {
+        background: #fed7d7;
+        color: #742a2a;
+      }
+
+      .status-overdue {
+        background: #fbb6ce;
+        color: #521b41;
+      }
+
+      /* Status indicators */
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+      }
+
+      .status-paid-dot {
+        background: #48bb78;
+      }
+
+      .status-pending-dot {
+        background: #ed8936;
+      }
+
+      .status-overdue-dot {
+        background: #e53e3e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Mis Facturas</h1>
+        <p>Gestiona tus facturas y cuotas</p>
+      </div>
+
+      <div class="filters">
+        <a href="#" class="filter-btn active" onclick="filterFacturas('all')">Todas</a>
+        <a href="#" class="filter-btn" onclick="filterFacturas('paid')">Pagadas</a>
+        <a href="#" class="filter-btn" onclick="filterFacturas('pending')">Pendientes</a>
+      </div>
+
+      <div class="facturas-list" id="facturasList">
+        <!-- Factura 1 - Pendiente -->
+        <div class="factura-card" data-status="pending">
+          <div class="factura-header">
+            <div class="factura-title">Cuota Comunidad Diciembre</div>
+            <div class="factura-amount">€125.50</div>
+          </div>
+          <div class="factura-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha vencimiento:</span>
+              <span class="detail-value">31/12/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Concepto:</span>
+              <span class="detail-value">Cuota mensual</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator status-pending-dot"></span>
+                Pendiente
+                <span class="status-badge status-pending">Pendiente</span>
+              </span>
+            </div>
+          </div>
+          <div class="factura-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Pagar Ahora</a>
+          </div>
+        </div>
+
+        <!-- Factura 2 - Pagada -->
+        <div class="factura-card" data-status="paid">
+          <div class="factura-header">
+            <div class="factura-title">Cuota Comunidad Noviembre</div>
+            <div class="factura-amount">€125.50</div>
+          </div>
+          <div class="factura-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">28/11/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Concepto:</span>
+              <span class="detail-value">Cuota mensual</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator status-paid-dot"></span>
+                Pagada
+                <span class="status-badge status-paid">Pagada</span>
+              </span>
+            </div>
+          </div>
+          <div class="factura-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Ver Recibo</a>
+          </div>
+        </div>
+
+        <!-- Factura 3 - Pendiente -->
+        <div class="factura-card" data-status="pending">
+          <div class="factura-header">
+            <div class="factura-title">Reparación Ascensor</div>
+            <div class="factura-amount">€45.75</div>
+          </div>
+          <div class="factura-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha vencimiento:</span>
+              <span class="detail-value">15/12/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Concepto:</span>
+              <span class="detail-value">Derrama extraordinaria</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator status-pending-dot"></span>
+                Pendiente
+                <span class="status-badge status-pending">Pendiente</span>
+              </span>
+            </div>
+          </div>
+          <div class="factura-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Pagar Ahora</a>
+          </div>
+        </div>
+
+        <!-- Factura 4 - Pagada -->
+        <div class="factura-card" data-status="paid">
+          <div class="factura-header">
+            <div class="factura-title">Cuota Comunidad Octubre</div>
+            <div class="factura-amount">€125.50</div>
+          </div>
+          <div class="factura-details">
+            <div class="detail-item">
+              <span class="detail-label">Fecha pago:</span>
+              <span class="detail-value">30/10/2025</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Concepto:</span>
+              <span class="detail-value">Cuota mensual</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Estado:</span>
+              <span class="detail-value">
+                <span class="status-indicator status-paid-dot"></span>
+                Pagada
+                <span class="status-badge status-paid">Pagada</span>
+              </span>
+            </div>
+          </div>
+          <div class="factura-actions">
+            <a href="#" class="action-btn">Descargar PDF</a>
+            <a href="#" class="action-btn secondary">Ver Recibo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function filterFacturas(status) {
+        const cards = document.querySelectorAll('.factura-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Filter cards
+        cards.forEach(card => {
+          if (status === 'all' || card.dataset.status === status) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if any cards are visible
+        const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+        const emptyMessage = document.getElementById('emptyMessage');
+        
+        if (visibleCards.length === 0) {
+          if (!emptyMessage) {
+            const empty = document.createElement('div');
+            empty.id = 'emptyMessage';
+            empty.className = 'empty-message';
+            empty.textContent = 'No hay facturas disponibles para este filtro.';
+            document.getElementById('facturasList').appendChild(empty);
+          }
+        } else {
+          if (emptyMessage) {
+            emptyMessage.remove();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
