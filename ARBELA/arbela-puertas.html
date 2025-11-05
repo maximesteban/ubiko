@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbela - Puertas</title>
+    <link rel="stylesheet" href="../css/arbela.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="wrap">
+          <div class="title">Puertas</div>
+          <div class="subtitle">Garage y vivienda (simulado)</div>
+        </div>
+        <div class="brand-accent"></div>
+      </header>
+
+      <main class="wrap stack-lg">
+        <div class="cards">
+          <div class="card">
+            <div class="row">
+              <div class="stack">
+                <div class="card-title">Puerta Garaje</div>
+                <div class="card-meta">Estado: <span id="est-garaje">Cerrada</span></div>
+              </div>
+              <span class="pill" id="pill-garaje">Seguro</span>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <a class="btn btn-primary" href="#" onclick="abrir('garaje')">Abrir</a>
+              <a class="btn btn-outline" href="#" onclick="cerrar('garaje')">Cerrar</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="row">
+              <div class="stack">
+                <div class="card-title">Puerta Vivienda</div>
+                <div class="card-meta">Estado: <span id="est-casa">Cerrada</span></div>
+              </div>
+              <span class="pill" id="pill-casa">Seguro</span>
+            </div>
+            <div class="row" style="margin-top:12px">
+              <a class="btn btn-primary" href="#" onclick="abrir('casa')">Abrir</a>
+              <a class="btn btn-outline" href="#" onclick="cerrar('casa')">Cerrar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Registro</div>
+          <div class="list" id="log"></div>
+        </div>
+      </main>
+
+    </div>
+
+    <script>
+      function log(msg){
+        const el = document.getElementById('log');
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.innerHTML = `<div class="card-meta">${new Date().toLocaleTimeString()} · ${msg}</div>`;
+        el.prepend(row);
+      }
+      function abrir(qual){
+        document.getElementById('est-'+qual).textContent='Abierta';
+        document.getElementById('pill-'+qual).textContent='Abierta';
+        log('Abierta puerta ' + qual);
+      }
+      function cerrar(qual){
+        document.getElementById('est-'+qual).textContent='Cerrada';
+        document.getElementById('pill-'+qual).textContent='Seguro';
+        log('Cerrada puerta ' + qual);
+      }
+    </script>
+  </body>
+  </html>

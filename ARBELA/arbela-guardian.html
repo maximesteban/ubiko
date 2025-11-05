@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbela - Modo Guardián</title>
+    <link rel="stylesheet" href="../css/arbela.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="wrap">
+          <div class="title">Modo Guardián</div>
+          <div class="subtitle">Avísanos si te vas de vacaciones</div>
+        </div>
+        <div class="brand-accent"></div>
+      </header>
+
+      <main class="wrap stack-lg">
+        <div class="card">
+          <div class="stack-lg">
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="desde">Desde</label>
+                <input class="input" id="desde" placeholder="20/07/2025 09:00" />
+              </div>
+              <div class="field">
+                <label class="label" for="hasta">Hasta</label>
+                <input class="input" id="hasta" placeholder="05/08/2025 20:00" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="observaciones">Observaciones</label>
+              <textarea class="input" id="observaciones" rows="4" placeholder="Ej. Regarán plantas los jueves por la tarde"></textarea>
+            </div>
+
+            <div class="row">
+              <a class="btn btn-primary" href="#" onclick="activar()">Activar modo guardián</a>
+              <a class="btn" href="#" onclick="desactivar()">Desactivar</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="estado" class="card" style="display:none">
+          <div class="row">
+            <div class="stack">
+              <div class="card-title">Guardián activo</div>
+              <div class="card-meta">Administración notificada (simulado)</div>
+            </div>
+            <span class="badge warning">Vigilancia</span>
+          </div>
+        </div>
+      </main>
+
+    </div>
+
+    <script>
+      function activar(){ document.getElementById('estado').style.display='block'; }
+      function desactivar(){ document.getElementById('estado').style.display='none'; }
+    </script>
+  </body>
+  </html>

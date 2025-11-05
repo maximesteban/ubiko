@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbela - Domótica</title>
+    <link rel="stylesheet" href="../css/arbela.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="wrap">
+          <div class="title">Mi hogar</div>
+          <div class="subtitle">Controles: luces, persianas, calefacción</div>
+        </div>
+        <div class="brand-accent"></div>
+      </header>
+
+      <main class="wrap stack-lg">
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">Luces</div>
+            <div class="row" style="margin-top:10px">
+              <a class="btn btn-primary" href="#" onclick="setLight(true)">Encender</a>
+              <a class="btn btn-outline" href="#" onclick="setLight(false)">Apagar</a>
+            </div>
+            <div class="card-meta" id="lightState">Estado: Apagadas</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Persianas</div>
+            <div class="row" style="margin-top:10px">
+              <input class="input" id="blind" type="range" min="0" max="100" value="0" oninput="setBlind(this.value)" />
+            </div>
+            <div class="card-meta" id="blindState">Apertura: 0%</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Calefacción</div>
+            <div class="row" style="margin-top:10px">
+              <a class="btn" href="#" onclick="addTemp(-1)">-</a>
+              <div class="pill" id="temp">21ºC</div>
+              <a class="btn" href="#" onclick="addTemp(1)">+</a>
+            </div>
+            <div class="card-meta">Modo simulado</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Escenas</div>
+          <div class="row">
+            <a class="btn" href="#" onclick="escena('Cine')">Cine</a>
+            <a class="btn" href="#" onclick="escena('Trabajo')">Trabajo</a>
+            <a class="btn" href="#" onclick="escena('Noche')">Noche</a>
+          </div>
+          <div class="card-meta" id="escena">Escena: Ninguna</div>
+        </div>
+      </main>
+
+    </div>
+
+    <script>
+      function setLight(on){
+        document.getElementById('lightState').textContent = 'Estado: ' + (on ? 'Encendidas' : 'Apagadas');
+      }
+      function setBlind(val){
+        document.getElementById('blindState').textContent = 'Apertura: ' + val + '%';
+      }
+      function addTemp(delta){
+        const el = document.getElementById('temp');
+        const n = parseInt(el.textContent) + delta;
+        el.textContent = n + 'ºC';
+      }
+      function escena(nombre){
+        document.getElementById('escena').textContent = 'Escena: ' + nombre;
+      }
+    </script>
+  </body>
+  </html>

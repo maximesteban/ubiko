@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbela - Nueva Incidencia</title>
+    <link rel="stylesheet" href="../css/arbela.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="wrap">
+          <div class="title">Crear incidencia</div>
+          <div class="subtitle">Notifica un problema a la administración</div>
+        </div>
+        <div class="brand-accent"></div>
+      </header>
+
+      <main class="wrap stack-lg">
+        <div class="card">
+          <div class="stack-lg">
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="titulo">Título</label>
+                <input class="input" id="titulo" placeholder="Ej. Goteo en bajante del portal" />
+              </div>
+              <div class="field">
+                <label class="label" for="categoria">Categoría</label>
+                <select class="select" id="categoria">
+                  <option>Mantenimiento</option>
+                  <option>Limpieza</option>
+                  <option>Seguridad</option>
+                  <option>Jardinería</option>
+                  <option>Otros</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="ubicacion">Ubicación</label>
+                <input class="input" id="ubicacion" placeholder="Ej. Portal B, planta 1" />
+              </div>
+              <div class="field">
+                <label class="label" for="urgencia">Urgencia</label>
+                <select class="select" id="urgencia">
+                  <option>Baja</option>
+                  <option>Media</option>
+                  <option>Alta</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="descripcion">Descripción</label>
+              <textarea class="input" id="descripcion" rows="5" placeholder="Cuéntanos qué ha pasado…"></textarea>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="foto">Foto (opcional)</label>
+                <input class="input" id="foto" type="file" />
+              </div>
+              <div class="field">
+                <label class="label" for="permiso">Permisos de acceso</label>
+                <select class="select" id="permiso">
+                  <option>Conserjería</option>
+                  <option>Mantenimiento</option>
+                  <option>Empresa externa</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <a class="btn btn-primary" href="#" onclick="enviar()">Enviar incidencia</a>
+              <a class="btn" href="arbela-incidencias.html">Cancelar</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="ok" class="card" style="display:none">
+          <div class="row">
+            <div class="stack">
+              <div class="card-title">Incidencia enviada</div>
+              <div class="card-meta">Ref. simulada INC-1A2B creada correctamente</div>
+            </div>
+            <span class="pill">Pendiente</span>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <a class="btn" href="arbela-incidencias.html">Ver listado</a>
+            <a class="btn btn-outline" href="arbela-index.html">Volver al portal</a>
+          </div>
+        </div>
+      </main>
+
+    </div>
+
+    <script>
+      function enviar(){
+        document.getElementById('ok').style.display='block';
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+    </script>
+  </body>
+  </html>

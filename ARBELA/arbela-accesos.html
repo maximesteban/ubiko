@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbela - Control de Acceso</title>
+    <link rel="stylesheet" href="../css/arbela.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="wrap">
+          <div class="title">Control de acceso</div>
+          <div class="subtitle">Invitados, servicio y repartos</div>
+        </div>
+        <div class="brand-accent"></div>
+      </header>
+
+      <main class="wrap stack-lg">
+        <div class="card">
+          <div class="section-title">Crear acceso temporal</div>
+          <div class="stack-lg">
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="nombre">Nombre invitado/servicio</label>
+                <input class="input" id="nombre" placeholder="Ej. Marta López / Fontanero" />
+              </div>
+              <div class="field">
+                <label class="label" for="area">Área permitida</label>
+                <select class="select" id="area">
+                  <option>Portal y ascensor</option>
+                  <option>Garaje y portal</option>
+                  <option>Áreas comunes</option>
+                </select>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="field">
+                <label class="label" for="desde">Desde</label>
+                <input class="input" id="desde" placeholder="15/09/2024 16:00" />
+              </div>
+              <div class="field">
+                <label class="label" for="hasta">Hasta</label>
+                <input class="input" id="hasta" placeholder="15/09/2024 19:00" />
+              </div>
+            </div>
+            <div class="row">
+              <a class="btn btn-primary" href="#">Generar código</a>
+              <a class="btn" href="#">Enviar por WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Accesos activos</div>
+          <div class="list">
+            <div class="row">
+              <div class="stack">
+                <div class="card-title">ARB-8F2K · Marta López</div>
+                <div class="card-meta">Válido hasta 15/09/2024 19:00 · Áreas: Portal</div>
+              </div>
+              <span class="badge info">Temporal</span>
+            </div>
+            <div class="row">
+              <div class="stack">
+                <div class="card-title">ARB-22QJ · Mensajería</div>
+                <div class="card-meta">Válido hasta 14/09/2024 21:00 · Áreas: Garaje y portal</div>
+              </div>
+              <span class="badge info">Temporal</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+.    </div>
+  </body>
+  </html>
